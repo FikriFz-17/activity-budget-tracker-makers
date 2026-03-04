@@ -1,11 +1,11 @@
 daily-react-makers
 ==================
 
-**01. JSX & Components** | ✅ | `src/01-basic-component.jsx` |
-**01. State & Props** | ✅ | `src/01-basic-component.jsx` |
-**01. Event Handling** | ✅ | `src/01-basic-component.jsx` |
-**01. lifecycle and hooks** | ✅ | `src/01-basic-component.jsx` |
-**01. conditional rendering** | ✅ | `src/01-basic-component.jsx` |
-**01. form & controlled component** | ✅ | `src/01-basic-component.jsx` |
-**01. react router** | ✅ | `src/01-basic-component.jsx` |
-**01. styling** | ✅ | `src/01-basic-component.jsx` |
+**01. JSX & Components** | ✅ | `basic react` |
+**02. State & Props** | ✅ | `basic react` |
+**03. Event Handling** | ✅ | `basic react` |
+**01. lifecycle and hooks** | ✅ | `intermediate react` |
+**02. conditional rendering** | ✅ | `intermediate react` |
+**03. form & controlled component** | ✅ | `intermediate react` |
+**04. react router** | ✅ | `intermediate react` |
+**05. styling** | ✅ | `intermediate react` |
