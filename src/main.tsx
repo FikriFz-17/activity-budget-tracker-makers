@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Login } from "./sections/Login.tsx";
-import ProtectedRoute from "./components/ProtectedRoute.tsx"; // Import komponen tadi
+import ProtectedRoute from "./components/ProtectedRoute.tsx"; 
 
 const router = createBrowserRouter([
   {
