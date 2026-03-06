@@ -1,48 +1,11 @@
-import { useState, useEffect } from "react";
 import { ActivitySection } from "./sections/ActivitySection";
 import { Summary } from "./sections/Summary";
-
-interface ActivityItem {
-  id: number;
-  title: string;
-  pengeluaran: number;
-}
+import { useFinance } from "./hooks/useFinance";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
-  // 1. mengambil dari LocalStorage
-  const [saldo, setSaldo] = useState<number>(() => {
-    const savedSaldo = localStorage.getItem("finance_saldo");
-    return savedSaldo ? JSON.parse(savedSaldo) : 100000;
-  });
-
-  const [aktivitas, setAktivitas] = useState<ActivityItem[]>(() => {
-    const savedAktivitas = localStorage.getItem("finance_activities");
-    return savedAktivitas ? JSON.parse(savedAktivitas) : [];
-  });
-
-  // 2. Lifecycle Hook: Menyimpan data setiap kali ada perubahan state
-  useEffect(() => {
-    localStorage.setItem("finance_saldo", JSON.stringify(saldo));
-    localStorage.setItem("finance_activities", JSON.stringify(aktivitas));
-  }, [saldo, aktivitas]);
-
-  const handleTambahAktivitas = (title: string, biaya: number) => {
-    if (saldo - biaya < 0) {
-      alert("Maaf, saldo Anda tidak mencukupi untuk transaksi ini.");
-      return;
-    }
-
-    const newActivity: ActivityItem = {
-      id: Date.now(),
-      title: title,
-      pengeluaran: biaya,
-    };
-
-    setAktivitas([newActivity, ...aktivitas]);
-    setSaldo(saldo - biaya);
-  };
-
-  // Menghitung status secara dinamis (Derived State)
+  const { saldo, aktivitas, addActivity, resetData } = useFinance();
+  const { logout } = useAuth();
   const getStatus = () => {
     if (saldo <= 5000){
       return "☠️"
@@ -53,27 +16,8 @@ function App() {
     }
   };
 
-  const handleResetLocal = () => {
-    if (
-      window.confirm(
-        "Apakah Anda yakin ingin menghapus semua riwayat transaksi?",
-      )
-    ) {
-      // 1. Bersihkan LocalStorage
-      localStorage.removeItem("finance_saldo");
-      localStorage.removeItem("finance_activities");
-
-      // 2. Kembalikan State ke nilai awal (Default)
-      setSaldo(100000);
-      setAktivitas([]);
-
-      alert("Data berhasil direset!");
-    }
-  }
-
   const handleLogout = () => {
-    localStorage.removeItem("isLogin");
-    window.location.reload();
+    logout();
   }
 
   return (
@@ -98,13 +42,13 @@ function App() {
               <ActivitySection
                 saldo={saldo}
                 activities={aktivitas}
-                onAdd={handleTambahAktivitas}
+                onAdd={addActivity}
               />
             </div>
           </div>
 
           <div className="lg:col-span-4 space-y-6">
-            <Summary totalItem={aktivitas.length} status={getStatus()} onReset={handleResetLocal}/>
+            <Summary totalItem={aktivitas.length} status={getStatus()} onReset={resetData}/>
           </div>
         </div>
       </main>

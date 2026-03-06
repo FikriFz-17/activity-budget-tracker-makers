@@ -1,11 +1,12 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth"; 
 
 interface Props {
   children: React.ReactNode;
 }
 
 const ProtectedRoute = ({ children }: Props) => {
-  const isAuth = localStorage.getItem("isLogin") === "true";
+  const { isAuth } = useAuth(); 
 
   if (!isAuth) {
     return <Navigate to="/login" replace />;
@@ -14,4 +15,4 @@ const ProtectedRoute = ({ children }: Props) => {
   return <>{children}</>;
 };
 
-export default ProtectedRoute; // Harus ada export agar Vite senang
+export default ProtectedRoute;

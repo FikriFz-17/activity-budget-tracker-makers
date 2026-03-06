@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Login } from "./sections/Login.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx"; 
+import { AuthProvider } from "./context/AuthProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,18 +19,15 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <Login
-        onLogin={() => {
-          localStorage.setItem("isLogin", "true");
-          window.location.href = "/";
-        }}
-      />
+      <Login/>
     ),
   },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );

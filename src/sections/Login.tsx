@@ -1,26 +1,24 @@
 import React, { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
-interface LoginProps {
-    onLogin: (email: string, password: string) => void
-}
-
-export const Login = ({onLogin} : LoginProps) => {
+export const Login = () => {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [Error, setError] = useState("");
+
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
 
-        const dummyEmail = "fikri@gmail.com";
-        const dummyPassword = "123456";
-
-        if (Email === dummyEmail && Password === dummyPassword) {
-            localStorage.setItem("isLogin", "true");
-            onLogin(Email, Password);
+        const success = login(Email, Password);
+        if (success) {
+            navigate("/");
         } else {
-            setError("Invalid email or password");
+            setError("Email atau password salah");
         }
     }
 
