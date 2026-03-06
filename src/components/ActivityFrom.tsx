@@ -1,10 +1,9 @@
 import { useState } from "react";
+import { useFinance } from "../context/FinanceContext";
 
-interface AddActivityProps {
-  onAdd: (title: string, biaya: number) => void;
-}
+export const AddActivityForm = () => {
+  const { addActivity } = useFinance();
 
-export const AddActivityForm = ({ onAdd }: AddActivityProps) => {
   const [title, setTitle] = useState("");
   const [biaya, setBiaya] = useState<number>(0);
 
@@ -15,7 +14,7 @@ export const AddActivityForm = ({ onAdd }: AddActivityProps) => {
       return;
     }
 
-    onAdd(title, biaya);
+    addActivity(title, biaya);
     setTitle(""); 
     setBiaya(0);
   };

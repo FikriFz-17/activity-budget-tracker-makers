@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Login } from "./sections/Login.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx"; 
 import { AuthProvider } from "./context/AuthProvider.tsx";
+import { FinanceProvider } from "./context/FinanceProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <FinanceProvider>
+        <RouterProvider router={router} />
+      </FinanceProvider>
     </AuthProvider>
   </StrictMode>,
 );

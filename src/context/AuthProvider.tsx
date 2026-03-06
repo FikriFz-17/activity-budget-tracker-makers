@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { AuthContext } from "./AuthContext";
+import { useAuthLogic } from "../hooks/useAuthLogic";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAuth, setIsAuth] = useState(
-    localStorage.getItem("isLogin") === "true",
-  );
+  const authValues = useAuthLogic();
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authValues}>{children}</AuthContext.Provider>
   );
 };

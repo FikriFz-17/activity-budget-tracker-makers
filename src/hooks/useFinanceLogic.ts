@@ -1,12 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import { type ActivityItem, type FinanceContextProps } from "../context/FinanceContext";
 
-interface ActivityItem {
-  id: number;
-  title: string;
-  pengeluaran: number;
-}
-
-export const useFinance = () => {
+export const useFinanceLogic = (): FinanceContextProps => {
   const [saldo, setSaldo] = useState<number>(() => {
     const saved = localStorage.getItem("finance_saldo");
     return saved ? JSON.parse(saved) : 100000;
@@ -43,5 +38,11 @@ export const useFinance = () => {
     }
   }, []);
 
-  return { saldo, aktivitas, addActivity, resetData };
+  const getStatus = () => {
+    if (saldo <= 5000) return "☠️";
+    if (saldo <= 10000) return "kritis";
+    return "okelah";
+  }
+
+  return { saldo, aktivitas, addActivity, resetData, getStatus };
 };
