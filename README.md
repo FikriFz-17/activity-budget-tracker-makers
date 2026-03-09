@@ -15,3 +15,4 @@ daily-react-makers
 | 07 | Styling | ✅ | Advance |
 | 08 | Higher-Order Components (HOCs) | ✅ | Advance |
 | 09 | Performance Optimization	 | ✅ | Advance |
+| 10 | Error Boundary	 | ✅ | Advance |
