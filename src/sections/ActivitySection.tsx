@@ -1,10 +1,12 @@
 import { ActivityCard } from "../components/ActivityCard";
 import { AddActivityForm } from "../components/ActivityFrom";
-import { useFinance } from "../context/FinanceContext"; 
+// import { useFinance } from "../context/FinanceContext"; 
+import { useAppSelector } from "../redux/hooks";
 
 export const ActivitySection = () => {
-  const { saldo, aktivitas } = useFinance();
-
+  // const { saldo, aktivitas } = useFinance();
+  const { saldo, aktivitas } = useAppSelector((state) => state.finance);
+  
   return (
     <section>
       <div

@@ -1,11 +1,11 @@
-import { useFinance } from "../context/FinanceContext"; // Import hook context
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { resetData, selectStatus } from "../redux/slices/financeSlice";
 
 export const Summary = () => {
-  // Ambil data yang dibutuhkan dari Context
-  const { aktivitas, getStatus, resetData } = useFinance();
+  const dispatch = useAppDispatch();
 
-  // Ambil string status (okelah/kritis/☠️) dari fungsi context
-  const status = getStatus();
+  const { aktivitas } = useAppSelector((state) => state.finance);
+  const status = useAppSelector(selectStatus);
 
   const getStatusColor = () => {
     if (status === "okelah") return "text-green-500";
@@ -36,7 +36,7 @@ export const Summary = () => {
       </ul>
 
       <button
-        onClick={resetData}
+        onClick={() => dispatch(resetData())} // Gunakan dispatch untuk memicu reset
         className="w-full py-2 text-xs font-semibold text-red-500 border border-red-100 rounded-xl hover:bg-red-50 hover:border-red-200 transition-colors">
         Reset Data & Saldo
       </button>

@@ -9,7 +9,11 @@ import Login from "./sections/Login.tsx";
 // import { Login } from "./sections/Login.tsx"; 
 import ProtectedRoute from "./components/ProtectedRoute.tsx"; 
 import { AuthProvider } from "./context/AuthProvider.tsx";
-import { FinanceProvider } from "./context/FinanceProvider.tsx";
+// import { FinanceProvider } from "./context/FinanceProvider.tsx";
+
+// redux 
+import { Provider } from "react-redux";
+import { store } from "./redux/store.ts";
 
 const router = createBrowserRouter([
   {
@@ -31,9 +35,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
-      <FinanceProvider>
+      {/* <FinanceProvider> */}
+      <Provider store={store}>
         <RouterProvider router={router} />
-      </FinanceProvider>
+      </Provider>
+      {/* </FinanceProvider> */}
     </AuthProvider>
   </StrictMode>,
 );

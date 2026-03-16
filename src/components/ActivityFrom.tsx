@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { useFinance } from "../context/FinanceContext";
+// import { useFinance } from "../context/FinanceContext";
+import { useAppDispatch } from "../redux/hooks";
+import { addActivity } from "../redux/slices/financeSlice";
 
 export const AddActivityForm = () => {
-  const { addActivity } = useFinance();
+  // const { addActivity } = useFinance();
+  const dispatch = useAppDispatch();
 
   const [title, setTitle] = useState("");
   const [biaya, setBiaya] = useState<number>(0);
@@ -14,7 +17,8 @@ export const AddActivityForm = () => {
       return;
     }
 
-    addActivity(title, biaya);
+    // addActivity(title, biaya);
+    dispatch(addActivity({ title, biaya }));
     setTitle(""); 
     setBiaya(0);
   };
