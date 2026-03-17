@@ -1,6 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ActivityItem } from "../../context/FinanceContext";
-import type { RootState } from "../store";
 
 interface FinanceState {
     saldo: number;
@@ -50,13 +49,6 @@ const financeSlice = createSlice({
   
 
 });
-
-export const selectStatus = (state: RootState) => {
-  const saldo = state.finance.saldo;
-  if (saldo <= 5000) return "☠️";
-  if (saldo <= 10000) return "kritis";
-  return "okelah";
-};
 
 export const { addActivity, resetData } = financeSlice.actions;
 export default financeSlice.reducer;

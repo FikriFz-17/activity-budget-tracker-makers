@@ -1,27 +1,29 @@
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { resetData, selectStatus } from "../redux/slices/financeSlice";
+import { resetData } from "../redux/slices/financeSlice";
+import { useStatusStore } from "../store/useStatusStore"; // Import Zustand
 
 export const Summary = () => {
   const dispatch = useAppDispatch();
 
-  const { aktivitas } = useAppSelector((state) => state.finance);
-  const status = useAppSelector(selectStatus);
+  // Ambil data dari Redux
+  const { aktivitas, saldo } = useAppSelector((state) => state.finance);
 
-  const getStatusColor = () => {
-    if (status === "okelah") return "text-green-500";
-    if (status === "kritis") return "text-yellow-500";
-    return "text-red-500";
-  };
+  // Ambil fungsi & state dari Zustand
+  const updateStatus = useStatusStore((state) => state.updateStatus);
+  const getStatusColor = useStatusStore((state) => state.getStatusColor);
+  const getStatusLabel = useStatusStore((state) => state.getStatusLabel);
 
-  const getStatusLabel = () => {
-    if (status === "okelah") return "Sultan";
-    if (status === "kritis") return "Kritis";
-    return "☠️";
-  };
+  // Sync Redux ke Zustand
+  useEffect(() => {
+    updateStatus(saldo);
+  }, [saldo, updateStatus]);
 
   return (
     <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
-      <h3 className="font-bold text-slate-800 mb-4">Ringkasan Hari Ini</h3>
+      <h3 className="font-bold text-slate-800 mb-4">
+        Ringkasan (Redux + Zustand)
+      </h3>
       <ul className="space-y-3 text-sm mb-3">
         <li className="flex justify-between">
           <span className="text-slate-500">Total Transaksi</span>
@@ -36,9 +38,9 @@ export const Summary = () => {
       </ul>
 
       <button
-        onClick={() => dispatch(resetData())} // Gunakan dispatch untuk memicu reset
-        className="w-full py-2 text-xs font-semibold text-red-500 border border-red-100 rounded-xl hover:bg-red-50 hover:border-red-200 transition-colors">
-        Reset Data & Saldo
+        onClick={() => dispatch(resetData())}
+        className="w-full py-2 text-xs font-semibold text-red-500 border border-red-100 rounded-xl hover:bg-red-50 transition-colors">
+        Reset Data
       </button>
     </div>
   );
