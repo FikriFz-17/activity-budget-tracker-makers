@@ -15,6 +15,8 @@ import { AuthProvider } from "./context/AuthProvider.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,14 +34,18 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AuthProvider>
-      {/* <FinanceProvider> */}
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-      {/* </FinanceProvider> */}
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        {/* <FinanceProvider> */}
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+        {/* </FinanceProvider> */}
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>,
 );

@@ -10,6 +10,7 @@ export const Summary = () => {
   const { aktivitas, saldo } = useAppSelector((state) => state.finance);
 
   // Ambil fungsi & state dari Zustand
+  const _status = useStatusStore((state) => state.status);
   const updateStatus = useStatusStore((state) => state.updateStatus);
   const getStatusColor = useStatusStore((state) => state.getStatusColor);
   const getStatusLabel = useStatusStore((state) => state.getStatusLabel);

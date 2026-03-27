@@ -2,6 +2,7 @@ import { ActivitySection } from "./sections/ActivitySection";
 import { Summary } from "./sections/Summary";
 import { useAuth } from "./context/AuthContext";
 import { lazy, Suspense } from "react";
+import { NewsSection } from "./sections/newsSection";
 
 const TestAdvanced = lazy(() => import("./sections/TestingErrSuspend"));
 
@@ -37,6 +38,7 @@ function App() {
 
           <div className="lg:col-span-4 space-y-6">
             <Summary />
+            <NewsSection />
           </div>
         </div>
 
